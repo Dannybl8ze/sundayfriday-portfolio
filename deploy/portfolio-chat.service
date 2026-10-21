@@ -1,0 +1,20 @@
+[Unit]
+Description=Portfolio chat backend (Amazon Bedrock)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=portfolio
+WorkingDirectory=/opt/portfolio/server
+Environment=AWS_REGION=us-east-1
+Environment=MODEL_ID=us.amazon.nova-micro-v1:0
+ExecStart=/usr/bin/python3.11 /opt/portfolio/server/chat_server.py --host 127.0.0.1 --port 8080
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
